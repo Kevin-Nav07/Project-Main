@@ -1,3 +1,5 @@
+// Starfield.js
+// Defines a starfield as a random point cloud in a large sphere.
 
 function Starfield(gl, numStars) {
     this.gl = gl;
@@ -8,12 +10,34 @@ function Starfield(gl, numStars) {
 
 Starfield.prototype.initBuffers = function () {
     const gl = this.gl;
+    const maxRadius = 200.0;
+
     for (let i = 0; i < this.numStars; i++) {
-        // Random positions across a wide area; stars are placed far in the background.
-        this.positions[i * 3 + 0] = (Math.random() - 0.5) * 200;
-        this.positions[i * 3 + 1] = (Math.random() - 0.5) * 200;
-        this.positions[i * 3 + 2] = -Math.random() * 100 - 50;
+        // Pick a random direction in 3D by normalizing a random vector
+        let x = Math.random() * 2.0 - 1.0;
+        let y = Math.random() * 2.0 - 1.0;
+        let z = Math.random() * 2.0 - 1.0;
+        let len = Math.sqrt(x * x + y * y + z * z);
+        // If length is near zero, pick again
+        if (len < 0.00001) {
+            i--;
+            continue;
+        }
+        x /= len;
+        y /= len;
+        z /= len;
+
+        // Pick a random radius up to maxRadius
+        let r = Math.random() * maxRadius;
+        x *= r;
+        y *= r;
+        z *= r;
+
+        this.positions[i * 3 + 0] = x;
+        this.positions[i * 3 + 1] = y;
+        this.positions[i * 3 + 2] = z;
     }
+
     this.vao = gl.createVertexArray();
     gl.bindVertexArray(this.vao);
 

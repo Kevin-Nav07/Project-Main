@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Satellite Orbit Simulator</title>
+    <title>Satellite Orbit Simulator – Step 2</title>
     <style>
         body {
             margin: 0;
@@ -20,16 +20,20 @@
 
 <body>
     <canvas id="glCanvas" width="800" height="600"></canvas>
-
+    <!-- Libraries (adjust paths if using local copies) -->
     <script src="lib/webgl-utils.js"></script>
     <script src="lib/webgl-debug.js"></script>
     <script src="lib/cuon-utils.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gl-matrix@3.4.3/gl-matrix-min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dat.gui@0.7.9/build/dat.gui.min.js"></script>
+
     <!-- Application Scripts -->
     <script src="Planet.js"></script>
     <script src="Satellite.js"></script>
     <script src="Starfield.js"></script>
     <script src="main.js"></script>
+    <script src="Thruster.js"></script>
+    <script src="Sun.js"></script>
 </body>
 
 </html>

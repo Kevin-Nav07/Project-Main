@@ -1,6 +1,7 @@
 #version 300 es
 precision mediump float;
+
 out vec4 fragColor;
 void main() {
-  fragColor = vec4(1.0);  // White color for stars
+  fragColor = vec4(1.0); // white color for stars
 }
