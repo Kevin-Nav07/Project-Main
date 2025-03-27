@@ -1,6 +1,3 @@
-
-
-
 const params = {
     planetRotationSpeed: 0.01,  // radians per frame
     satelliteBaseSpeed: 0.5,     // base orbit speed for satellites
@@ -11,6 +8,36 @@ const params = {
         console.log("Reset Camera triggered (implement if needed)");
     }
 };
+
+// Camera control variables
+let cameraDistance = 8.0;
+let cameraHeight = 3.0;
+let cameraSpeed = 0.1;
+
+function setupKeyboardControls() {
+    document.addEventListener('keydown', (event) => {
+        switch(event.key) {
+            case 'ArrowUp':
+                cameraHeight += cameraSpeed;
+                break;
+            case 'ArrowDown':
+                cameraHeight -= cameraSpeed;
+                break;
+            case '+':
+            case '=':
+                cameraDistance -= cameraSpeed;
+                break;
+            case '-':
+            case '_':
+                cameraDistance += cameraSpeed;
+                break;
+        }
+        
+        // Clamp values to reasonable ranges
+        cameraDistance = Math.max(2.0, Math.min(20.0, cameraDistance));
+        cameraHeight = Math.max(0.5, Math.min(10.0, cameraHeight));
+    });
+}
 
 function initGUI() {
     const gui = new dat.GUI();
@@ -138,6 +165,9 @@ async function main() {
     let planetAngle = 0.0;
     let lastTime = performance.now();
 
+    // Setup keyboard controls
+    setupKeyboardControls();
+
     // -------------------------
     // Render Loop.
     // -------------------------
@@ -146,12 +176,11 @@ async function main() {
         let deltaTime = (currentTime - lastTime) / 1000.0;
         lastTime = currentTime;
 
-        // Update camera: orbit around the scene.
+        // Update camera: orbit around the scene with adjustable distance/height
         cameraAngle += 0.005;
-        const cameraDistance = 8.0;
         let camX = Math.cos(cameraAngle) * cameraDistance;
         let camZ = Math.sin(cameraAngle) * cameraDistance;
-        let cameraPos = [camX, 3, camZ];
+        let cameraPos = [camX, cameraHeight, camZ];
         glMatrix.mat4.lookAt(viewMatrix, cameraPos, [0, 0, 0], [0, 1, 0]);
 
         // Compute combined MVP for dynamic objects.
@@ -262,8 +291,6 @@ async function main() {
                 thrusters[i].emit(thrusterPos, params.thrusterLifetime);
             }
         }
-
-
 
         // --- 6) Render Thrusters ---
         gl.useProgram(thrusterShader);
