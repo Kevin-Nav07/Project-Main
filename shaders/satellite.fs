@@ -7,7 +7,7 @@ in vec3 vFragPos;
 
 uniform sampler2D uSatTex;
 uniform vec3 uLightDir;      // Direction of the incoming light (normalized)
-uniform vec3 uLightColor;    // Light color/brightness (e.g., from the sun)
+uniform vec3 uLightColor;    // Light color/brightness from the sun
 uniform vec3 uAmbientColor;  // Ambient light
 
 out vec4 fragColor;

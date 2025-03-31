@@ -6,7 +6,7 @@ function Satellite(gl) {
     this.vertexData = []; // will hold (x, y, z, u, v, nx, ny, nz) per vertex
     this.indexData = [];
     this.createGeometry();
-    // Orbit parameters.
+    // orbit parameters.
     this.orbitRadius = 3.0;
     this.orbitSpeed = 0.5;
     this.orbitAngle = 0;
@@ -16,10 +16,10 @@ Satellite.prototype.createGeometry = function () {
     const vertices = [];
     const indices = [];
 
-    // Helper function to push a face (quad composed of two triangles).
+    // Helper function to push a face (quad composed of two triangles)
     // Each vertex: [x, y, z, u, v]
     function pushFace(p1, p2, p3, p4) {
-        // Compute face normal via cross product.
+        // Compute face normal via cross product
         const v1 = [p2[0] - p1[0], p2[1] - p1[1], p2[2] - p1[2]];
         const v2 = [p3[0] - p1[0], p3[1] - p1[1], p3[2] - p1[2]];
         let nx = v1[1] * v2[2] - v1[2] * v2[1];
@@ -28,7 +28,7 @@ Satellite.prototype.createGeometry = function () {
         const len = Math.sqrt(nx * nx + ny * ny + nz * nz);
         nx /= len; ny /= len; nz /= len;
         const base = vertices.length / 8;
-        // Push each vertex: position, texcoord, then normal.
+        // push each vertex: position, texcoord, then normal.
         [p1, p2, p3, p4].forEach(p => {
             vertices.push(p[0], p[1], p[2], p[3], p[4], nx, ny, nz);
         });
@@ -74,7 +74,7 @@ Satellite.prototype.createGeometry = function () {
         [-bx, -by, bz, 0, 1]
     );
 
-    // Solar panels.
+    // solar panels.
     const panelW = 0.3, panelH = 0.08, panelZ = 0.01;
     let pxL = -(bx + 0.05);
     pushFace(

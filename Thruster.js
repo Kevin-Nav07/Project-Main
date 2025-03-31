@@ -1,5 +1,5 @@
-// Thruster.js
-// A simple particle system for a short thruster trail with fade-out.
+
+// A simple particle system for a short thruster trail with fade-out
 
 function Thruster(gl, maxParticles) {
     this.gl = gl;
@@ -10,7 +10,7 @@ function Thruster(gl, maxParticles) {
     this.vao = gl.createVertexArray();
     gl.bindVertexArray(this.vao);
 
-    // Each particle = 4 floats: x, y, z, life
+    // Each particle has 4 floats: x, y, z, life
     this.buffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, this.buffer);
     gl.bufferData(
@@ -28,7 +28,7 @@ function Thruster(gl, maxParticles) {
 }
 
 Thruster.prototype.emit = function (basePos) {
-    // Short lifetime so trail is short
+    // Short lifetime so the overall trail is short
     const lifetime = 0.4;
 
     // Add a small random offset to create a slight plume shape
@@ -63,7 +63,7 @@ Thruster.prototype.update = function (deltaTime) {
 Thruster.prototype.draw = function () {
     const gl = this.gl;
     // Create Float32Array for current particle data
-    // Format = (x, y, z, life) for each particle
+    // (x, y, z, life) for each particle
     const data = new Float32Array(this.maxParticles * 4);
 
     for (let i = 0; i < this.particles.length; i++) {
@@ -78,7 +78,7 @@ Thruster.prototype.draw = function () {
     gl.bindBuffer(gl.ARRAY_BUFFER, this.buffer);
     gl.bufferSubData(gl.ARRAY_BUFFER, 0, data);
 
-    // Draw
+    // draw
     gl.bindVertexArray(this.vao);
     gl.drawArrays(gl.POINTS, 0, this.particles.length);
     gl.bindVertexArray(null);

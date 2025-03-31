@@ -1,4 +1,4 @@
-// Sun.js
+
 // Defines a simple emissive sphere representing the sun.
 
 function Sun(gl) {

@@ -2,11 +2,15 @@
 precision mediump float;
 
 layout(location = 0) in vec3 aPosition;
-out vec3 vPosition;
+layout(location = 1) in float aT;
 
 uniform mat4 uMVP;
+uniform float uPointSize;
+
+out float vT;
 
 void main() {
     gl_Position = uMVP * vec4(aPosition, 1.0);
-    vPosition = aPosition;
+    gl_PointSize = uPointSize;
+    vT = aT;
 }

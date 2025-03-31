@@ -1,5 +1,5 @@
-// Planet.js
-// Defines a textured sphere representing the planet with normals for lighting.
+
+// defines a textured sphere representing the planet with normals for lighting.
 function Planet(gl) {
     this.gl = gl;
     this.vao = null;

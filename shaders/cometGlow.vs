@@ -2,11 +2,11 @@
 precision mediump float;
 
 layout(location = 0) in vec3 aPosition;
-out vec3 vPosition;
 
 uniform mat4 uMVP;
+uniform float uPointSize;  // will be larger than the normal head
 
 void main() {
     gl_Position = uMVP * vec4(aPosition, 1.0);
-    vPosition = aPosition;
+    gl_PointSize = uPointSize;
 }
